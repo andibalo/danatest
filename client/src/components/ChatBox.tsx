@@ -1,5 +1,5 @@
 import { Box, } from '@chakra-ui/react';
-import React from 'react'
+import React, { memo } from 'react'
 import { ChatMessage } from '../types/chat.ts';
 
 interface ChatBoxProps {
@@ -8,7 +8,7 @@ interface ChatBoxProps {
 }
 
 
-export const ChatBox = (props: ChatBoxProps) => {
+export const ChatBox = memo((props: ChatBoxProps) => {
 
     const { messageList, currentUser } = props
 
@@ -29,4 +29,9 @@ export const ChatBox = (props: ChatBoxProps) => {
             </Box>
         </Box>
     )
-}
+}, (prevProps, nextProps) => {
+    if (prevProps.messageList.length === nextProps.messageList.length) {
+        return true;
+    }
+    return false;
+}) 
